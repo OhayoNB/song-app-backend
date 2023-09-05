@@ -1,8 +1,6 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import * as fs from 'fs';
-import * as papa from 'papaparse';
 import { SongService } from './song.service';
 
 @Controller('song')
@@ -27,5 +25,10 @@ export class SongController {
             console.error('An error occurred when parsing CSV:', error);
             throw error;
         }
+    }
+
+    @Get()
+    async getAllSongs() {
+        return await this.songService.getAllSongs();
     }
 }

@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import * as fs from 'fs';
 import * as papa from 'papaparse';
+import { Song } from './model/song.model';
 
 @Injectable()
 export class SongService {
+
+    constructor(
+        @InjectModel(Song) private songModel: typeof Song,
+    ) { }
+
     async parseCSVFile(filePath: string): Promise<any[]> {
         console.log('Parsing CSV file...');
         return new Promise((resolve, reject) => {
@@ -23,7 +30,10 @@ export class SongService {
               result.push(row.data);
             },
             complete: () => {
-              console.log('Parsing complete!');
+                // save each row to database
+                result.forEach(async (row) => {
+                    await this.songModel.create(row);
+                });
               resolve(result);
             },
             error: (error) => {
@@ -32,4 +42,8 @@ export class SongService {
           });
         });
       }
+
+    async getAllSongs(): Promise<Song[]> {
+        return await this.songModel.findAll();
+    }
 }
