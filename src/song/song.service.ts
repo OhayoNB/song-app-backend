@@ -27,7 +27,12 @@ export class SongService {
           papa.parse(csvReadStream, {
             ...csvParserConfig,
             step: (row) => {
-              result.push(row.data);
+              const mappedRow = {
+                songName: row.data['song name'],
+                band: row.data['band'],
+                year: row.data['year'],
+              };
+              result.push(mappedRow);
             },
             complete: () => {
                 // save each row to database
