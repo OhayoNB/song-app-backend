@@ -11,7 +11,7 @@ export class SongService {
         @InjectModel(Song) private songModel: typeof Song,
     ) { }
 
-    async parseCSVFile(filePath: string): Promise<any[]> {
+    async parseCSVFile(filePath: string): Promise<Song[]> {
         console.log('Parsing CSV file...');
         return new Promise((resolve, reject) => {
           const result = [];

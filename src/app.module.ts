@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { SongModule } from './song/song.module';
 
@@ -15,7 +13,5 @@ import { SongModule } from './song/song.module';
     autoLoadModels: true,
     synchronize: true,
   }), SongModule],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
