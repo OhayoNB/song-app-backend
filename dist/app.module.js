@@ -16,11 +16,11 @@ AppModule = __decorate([
     (0, common_1.Module)({
         imports: [sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                host: 'localhost',
+                host: process.env.POSTGRES_HOST,
                 port: 5432,
-                username: 'postgres',
-                password: 'b260292o',
-                database: 'postgres',
+                username: process.env.POSTGRES_USER,
+                password: process.env.POSTGRES_PASSWORD,
+                database: process.env.POSTGRES_DB,
                 autoLoadModels: true,
                 synchronize: true,
             }), song_module_1.SongModule],

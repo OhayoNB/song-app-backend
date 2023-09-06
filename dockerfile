@@ -1,12 +1,12 @@
 FROM node:18
 
-WORKDIR /app
+WORKDIR /server
 
 COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
 RUN npm run build
 
